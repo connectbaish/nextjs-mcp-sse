@@ -1,0 +1,14 @@
+[
+  { "id": 1, "name": "Laptop", "price": 900, "description": "High performance laptop", "category": "Electronics" },
+  { "id": 2, "name": "Wireless Mouse", "price": 25, "description": "Ergonomic wireless mouse", "category": "Accessories" },
+  { "id": 3, "name": "Keyboard", "price": 45, "description": "Mechanical keyboard with backlight", "category": "Accessories" },
+  { "id": 4, "name": "Monitor", "price": 200, "description": "27-inch 4K monitor", "category": "Electronics" },
+  { "id": 5, "name": "Smartphone", "price": 700, "description": "Latest model smartphone with high camera quality", "category": "Electronics" },
+  { "id": 6, "name": "Toys", "price": 150, "description": "Toys for 4 years old kids", "category": "Kids" },
+  { "id": 7, "name": "T-Shirt", "price": 20, "description": "Cotton round-neck t-shirt", "category": "Clothing" },
+  { "id": 8, "name": "Jeans", "price": 40, "description": "Slim fit denim jeans", "category": "Clothing" },
+  { "id": 9, "name": "Blender", "price": 60, "description": "500W electric kitchen blender", "category": "Home Appliances" },
+  { "id": 10, "name": "Microwave Oven", "price": 150, "description": "20L solo microwave oven", "category": "Home Appliances" },
+  { "id": 11, "name": "Novel", "price": 15, "description": "Fictional mystery novel", "category": "Books" },
+  { "id": 12, "name": "Notebook", "price": 5, "description": "200-page ruled notebook", "category": "Stationery" }
+]
