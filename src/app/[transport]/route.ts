@@ -1,13 +1,22 @@
 import { createMcpHandler } from "@vercel/mcp-adapter";
 import { z } from "zod";
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  category?: string;
+};
+
 const handler = createMcpHandler(
   (server) => {
-    //search-tool
+    // Search tool
     server.tool(
       "searchProducts",
       "Search for a product by name from the product database",
       {
-        name: z.string(), // User input for the product name
+        name: z.string(),
       },
       {
         title: "Search Product",
@@ -18,11 +27,11 @@ const handler = createMcpHandler(
       },
       async ({ name }) => {
         try {
-          const products = await import("../../data/product.json", {
+          const products: Product[] = await import("../../data/product.json", {
             with: { type: "json" },
           }).then((m) => m.default);
 
-          const result = products.filter((product: any) =>
+          const result = products.filter((product) =>
             product.name.toLowerCase().includes(name.toLowerCase())
           );
 
@@ -41,18 +50,19 @@ const handler = createMcpHandler(
                 text:
                   `Found ${result.length} product(s):\n\n` +
                   result
-                    .map((p: any) => `- ${p.name} (Price: $${p.price})`)
+                    .map((p) => `- ${p.name} (Price: $${p.price})`)
                     .join("\n"),
               },
             ],
           };
-        } catch (err) {
+        } catch (_err) {
           return {
             content: [{ type: "text", text: "Error searching for product" }],
           };
         }
       }
     );
+
     // Get product details tool
     server.tool(
       "getProductDetails",
@@ -68,12 +78,12 @@ const handler = createMcpHandler(
         destructiveHint: false,
       },
       async ({ name }) => {
-        const products = await import("../../data/product.json", {
+        const products: Product[] = await import("../../data/product.json", {
           with: { type: "json" },
         }).then((m) => m.default);
 
         const product = products.find(
-          (p: any) => p.name.toLowerCase() === name.toLowerCase()
+          (p) => p.name.toLowerCase() === name.toLowerCase()
         );
 
         if (!product) {
@@ -94,12 +104,13 @@ const handler = createMcpHandler(
         };
       }
     );
+
     // Get products by category tool
     server.tool(
       "getProductsByCategory",
       "Get products by category",
       {
-        category: z.string().describe("Exact name of the product"),
+        category: z.string().describe("Exact name of the category"),
       },
       {
         title: "Get Products by Category",
@@ -109,12 +120,12 @@ const handler = createMcpHandler(
         openWorldHint: true,
       },
       async ({ category }) => {
-        const products = await import("../../data/product.json", {
+        const products: Product[] = await import("../../data/product.json", {
           with: { type: "json" },
         }).then((m) => m.default);
 
         const filtered = products.filter(
-          (p: any) => p.category?.toLowerCase() === category.toLowerCase()
+          (p) => p.category?.toLowerCase() === category.toLowerCase()
         );
 
         if (filtered.length === 0) {
@@ -134,9 +145,7 @@ const handler = createMcpHandler(
               type: "text",
               text:
                 `📦 Products in '${category}':\n\n` +
-                filtered
-                  .map((p: any) => `- ${p.name} ($${p.price})`)
-                  .join("\n"),
+                filtered.map((p) => `- ${p.name} ($${p.price})`).join("\n"),
             },
           ],
         };
